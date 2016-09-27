@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	<meta name="viewport" content="width=720px, user-scalable=no">
+	<title>测试用例</title>
+
+	<!--build:css style/styles.min.css-->
+	<link rel="stylesheet" type="text/css" href="./style/main.css">
+	<!--endbuild-->
+</head>
+
+<body>
+<!--遮罩层-->
+<mask style="display:none;"></mask>
+
+<div class="popup" id="popup_EQP_out" style="display:none;">
+	<section class="popup_confirm">
+		<h1>喵咚家'Link管理</h1>
+		<a href="javascript:void(0)" class="popup_out">确定</a>
+		<a href="javascript:void(0)" class="popup_cancel">取消</a>
+	</section>
+</div>
+
+<!-- 设置初始密码和安全邮箱时 -->
+<div class="popup" id="popup_EQP_finish" style="display:none;">
+	<section class="popup_confirm">
+		<h1>请牢记您的密码和安全邮箱</h1>
+		<a href="javascript:void(0)" class="popup_ok">确定</a>
+		<a href="javascript:void(0)" class="popup_cancel">返回编辑</a>
+	</section>
+</div>
+
+<form action="http://s.91wego.com/smartHome_1/setInitPwd" class="form-horizontal" id="addForm" method="post">
+	<!-- 取值 -->
+	<section class="EQP_section EQP_show EQP_Height" id="EQP_1" style="height: 978px; display: block;">
+		<h1 class="EQP_name">请输入设备的初始密码和安全邮箱</h1>
+
+		<svg class="icon-40-darkgray">
+			<use xlink:href="./images/icons/xlink_icon.svg#icon_pwd"></use>
+		</svg>
+
+		<input type="password" id="initPwd" name="initPwd" class="one" placeholder="请输入密码" maxlength="18">
+
+		<svg class="icon-40-blue testOk initPwd">
+			<use xlink:href="./images/icons/xlink_icon.svg#icon_correct"></use>
+		</svg>
+		<br>
+
+		<div class="testAlert initPwd">
+			<section style="float: left;margin: 1.5rem 2rem;">
+				<svg class="icon-40-roseo">
+					<use xlink:href="./images/icons/xlink_icon.svg#icon_warning"></use>
+				</svg>
+			</section>
+			密码必须由6-18位的字母、数字或下划线组成。
+		</div>
+
+		<svg class="icon-40-darkgray">
+			<use xlink:href="./images/icons/xlink_icon.svg#icon_pwd"></use>
+		</svg>
+
+		<input type="password" id="twicePwd" name="twicePwd" class="two" placeholder="请再输入一遍密码" maxlength="18">
+
+		<svg class="icon-40-blue testOk twicePwd">
+			<use xlink:href="./images/icons/xlink_icon.svg#icon_correct"></use>
+		</svg>
+		<br>
+
+		<div class="testAlert twicePwd">
+			<section style="float: left;margin: 1.5rem 2rem;">
+				<svg class="icon-40-roseo">
+					<use xlink:href="./images/icons/xlink_icon.svg#icon_warning"></use>
+				</svg>
+			</section>
+			两次密码不一致,<br>请检查后再次输入。
+		</div>
+
+		<svg class="icon-40-darkgray">
+			<use xlink:href="./images/icons/xlink_icon.svg#icon_email"></use>
+		</svg>
+
+		<input type="email" id="safeEmail" name="safeEmail" class="three" placeholder="请输入您的安全邮箱">
+
+		<svg class="icon-40-blue testOk email">
+			<use xlink:href="./images/icons/xlink_icon.svg#icon_correct"></use>
+		</svg>
+		<br>
+
+		<div class="testAlert email">
+			<section style="float: left;margin: 1.5rem 2rem;">
+				<svg class="icon-40-roseo">
+					<use xlink:href="./images/icons/xlink_icon.svg#icon_warning"></use>
+				</svg>
+			</section>
+			邮箱格式不正确，<br>请检查后再次输入。
+		</div>
+
+		<aside>
+			<a href="javascript:void(0)" class="EQP_btn" data-add-btnfn="back_WX">退出</a>
+			<a href="javascript:void(0)" class="EQP_btn" id="test_btn" data-add-btnfn="finish">确认</a>
+		</aside>
+	</section>
+</form>
+
+
+<!--build:js scripts/main.min.js -->
+<script src="./scripts/zepto.js"></script>
+<script src="./scripts/iscroll-lite.js"></script>
+<script src="./scripts/main.js"></script>
+<!--endbuild-->
+
+
+</body>
+</html>
