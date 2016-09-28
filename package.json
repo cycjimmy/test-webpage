@@ -1,16 +1,16 @@
 {
   "name": "test-webpage",
-  "version": "0.0.1",
-  "description": "a gulp template",
+  "version": "0.0.2",
+  "description": "a webpage test",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/cycjimmy/gulp-temp"
+    "url": "https://github.com/cycjimmy/test-webpage"
   },
   "scripts": {
     "start": "gulp",
-    "svg": "gulp svgstore",
-    "build": "gulp build"
+    "build": "gulp build",
+    "deploy": "gulp deploy"
   },
   "author": "cycjimmy",
   "license": "ISC",

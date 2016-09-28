@@ -4,7 +4,6 @@
 
 var gulp = require('gulp'),
 	browserSync = require('browser-sync'),
-	useref = require('gulp-useref'),
 	uglify = require('gulp-uglify'),
 	gulpIf = require('gulp-if'),
 	cssnano = require('gulp-cssnano'),
@@ -33,16 +32,6 @@ gulp.task('browserSync', function() {
 	})
 });
 
-//压缩合并
-gulp.task('useref', function(){
-	return gulp
-		.src('app/*.html')
-		.pipe(useref())                     //合并
-		.pipe(gulpIf('*.js', uglify()))     //压缩JS
-		.pipe(gulpIf('*.css', cssnano()))   //压缩CSS
-		.pipe(gulp.dest('dist'));
-});
-
 //压缩图片
 gulp.task('images', function(){
 	return gulp
@@ -51,11 +40,18 @@ gulp.task('images', function(){
 		.pipe(gulp.dest('dist/images'))
 });
 
-//复制图标
-gulp.task('copyIcon', function() {
+//复制其他
+gulp.task('copyOther', function() {
 	return gulp
-		.src('app/images/icons/**/*')
-		.pipe(gulp.dest('dist/images/icons'))
+		.src([
+			'app/**/*.html',
+			'app/scripts/**/*.js',
+			'app/style/**/*.css',
+			'app/images/icons/**/*'
+		], {
+			base: 'app'
+		})
+		.pipe(gulp.dest('dist'))
 });
 
 //清空目录
@@ -101,7 +97,7 @@ gulp.task('default', function (callback) {
 
 gulp.task('build', function (callback) {
 	runSequence('clean:dist',
-		['useref', 'images', 'copyIcon'],
+		[ 'images', 'copyOther'],
 		callback
 	)
 });
