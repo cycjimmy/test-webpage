@@ -1,5 +1,26 @@
 var alive = {};
 
+
+//tools
+alive.tools = {};
+
+//事件初始化
+alive.tools.setDefault = function () {
+	document.addEventListener('touchstart', function (e) {
+		e.preventDefault();
+	}, false);
+	document.addEventListener('touchmove', function (e) {
+		e.preventDefault();
+	});
+	document.oncontextmenu = function (e) {
+		window.event.returnValue = false;
+		e.preventDefault();
+		return false;
+	};
+};
+
+
+//ui
 alive.ui = {};
 
 alive.ui.mask = {};
@@ -166,3 +187,25 @@ function CheckMail(mail) {
 	}
 }
 
+//初始化输入框tap事件获得焦点
+alive.ui.tapInputFocus = function () {
+	var aInputBox = $('input');
+
+	//离开input失去焦点
+	$('html').on('touchstart', function () {
+		console.log('失去焦点');
+		aInputBox.blur();
+	});
+
+	//绑定tap获取焦点
+	aInputBox.each(function () {
+		this.addEventListener('touchstart',function(e){
+			e.stopPropagation();
+			this.focus();
+			console.log('获得焦点');
+		});
+	});
+};
+//-------------------------------以上代码测试通过------------------------------------
+
+alive.ui.tapInputFocus();
