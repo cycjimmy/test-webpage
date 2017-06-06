@@ -1,112 +1,916 @@
 <!DOCTYPE html>
-<html>
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+<!-- saved from url=(0100)http://s.91wego.com/smartHome_1/goHome/0-11206030083809211958-oBMD_tyqmQiAerjhUToYPAas95qQ?winzoom=1 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	
 	<meta name="viewport" content="width=720px, user-scalable=no">
-	<title>测试用例</title>
-
-	<link rel="stylesheet" type="text/css" href="./style/main.css">
+	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Expires" content="0">
+	<title>X'Link</title>		<link rel="stylesheet" type="text/css" href="./X&#39;Link_files/main.css">	
+	<script src="./X&#39;Link_files/iplookup.php"></script>
+	
 </head>
+	<body>
+		<!-- 取值 -->
+<input type="hidden" name="codeid" id="codeid" value="1445"><!-- 二维码ID -->
+<input type="hidden" name="userid" id="userid" value="11206030083809211958"><!-- 公众号ID -->
+<input type="hidden" name="openid" id="openid" value="oBMD_tyqmQiAerjhUToYPAas95qQ"><!-- 用户OpenID -->
+<input type="hidden" name="scecontid" id="scecontid" value=""><!-- 场景内容ID -->
+<input type="hidden" name="tempid" id="tempid" value="">
+<input type="hidden" name="errorinfo" id="errorinfo" value=""><!-- errorInfo -->
+<input type="hidden" name="showFlg" id="showFlg" value=""><!-- 显示 标识  2015 11 18  --> 
+<input type="hidden" name="isURL" id="isURL" value="">
 
-<body>
-<!--遮罩层-->
-<mask style="display:none;"></mask>
+<input type="hidden" name="sceID" id="sceID" value=""><!-- 场景ID -->
+<input type="hidden" name="secID" id="secID" value=""><!-- 二级页面ID -->
+<input type="hidden" name="secName" id="secName" value=""><!-- 二级页面名 -->
+<input type="hidden" name="firstID" id="firstID" value=""><!-- 一级页面按钮ID -->
+<input type="hidden" name="secPic" id="secPic" value=""><!-- 二级页面图片 -->
 
-<div class="popup" id="popup_EQP_out" style="display:none;">
-	<section class="popup_confirm">
-		<h1>喵咚家'Link管理</h1>
-		<a href="javascript:void(0)" class="popup_out">确定</a>
-		<a href="javascript:void(0)" class="popup_cancel">取消</a>
-	</section>
-</div>
+<input type="hidden" name="random" id="random"><!-- 灯 插座 所需随机码 或 安防设备 射频码-->
 
-<!-- 设置初始密码和安全邮箱时 -->
-<div class="popup" id="popup_EQP_finish" style="display:none;">
-	<section class="popup_confirm">
-		<h1>请牢记您的密码和安全邮箱</h1>
-		<a href="javascript:void(0)" class="popup_ok">确定</a>
-		<a href="javascript:void(0)" class="popup_cancel">返回编辑</a>
-	</section>
-</div>
+<input type="hidden" name="dataValue" id="dataValue" value="value"><!-- 主机传回的值 -->
 
-<form action="#" class="form-horizontal" id="addForm" method="post">
-	<!-- 取值 -->
-	<section class="EQP_section EQP_show EQP_Height" id="EQP_1" style="height: 978px; display: block;">
-		<h1 class="EQP_name">请输入设备的初始密码和安全邮箱</h1>
+<input type="hidden" name="redBtnKey" id="redBtnKey" value="1"><!-- 红外更改功能时的键值 默认从1开始-->
+<input type="hidden" name="gzhflag" id="gzhflag" value="0"><!-- 公众号标示titile显示用 -->		<input type="hidden" id="htmlFlg" value="index"><!-- 主页 标识 -->		<!-- 遮罩层 -->
+		<mask style="display:none;"></mask>
+		
+		<!-- 确认提示框     删除设备 / 开启场景时确认 -->
+		<div class="popup" id="popup_alert_Index" style="display:none;">
+            <section class="popup_confirm">
+                <h1></h1>
+                <a href="javascript:void(0)" class="confirm">确定</a>
+                <a href="javascript:void(0)" class="popup_cancel">取消</a>
+            </section>
+        </div>
+		
+		<!-- 提示框 提示 删除成功  / 开启成功 -->
+		<div class="popup" id="popup_alert" style="display:none;">
+            <section class="popup_confirm">
+                <a href="javascript:void(0)" class="alertMsg" style="color:#ea6e6e;"></a>
+            </section>
+        </div>
+	    
+	    <!-- 头部三个数据显示 -->
+		<header>
+			<div id="page_head">
+				<!--温度监控-->
+				<section id="temperature">
+					<div>
+						<svg class="icon-30-white" style="float: left;">
+							<use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_temperature"></use>
+						</svg>
+						温度
+					</div>
+					<p id="shinei">22</p>
+					<footer>℃</footer>
+				</section>
 
-		<svg class="icon-40-darkgray">
-			<use xlink:href="./images/icons/xlink_icon.svg#icon_pwd"></use>
-		</svg>
+				<!--空气质量监控-->
+				<section id="airquality">
+					<div>
+						<svg class="icon-30-white" style="float: left;">
+							<use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_airQuality"></use>
+						</svg>
+						PM 2.5
+					</div>
+					<p id="PM25">53</p>
+					<footer id="AQI">良</footer>
+				</section>
 
-		<input type="password" id="initPwd" name="initPwd" class="one" placeholder="请输入密码" maxlength="18">
+				<!--湿度监控-->
+				<section id="humidity">
+					<div>
+						<svg class="icon-30-white" style="float: left;">
+							<use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_humidity"></use>
+						</svg>
+						湿度
+					</div>
+					<p id="shidu">31</p>
+					<footer>%</footer>
+				</section>
 
-		<svg class="icon-40-blue testOk initPwd">
-			<use xlink:href="./images/icons/xlink_icon.svg#icon_correct"></use>
-		</svg>
-		<br>
+				<!--报警监控-->
+				<p id="monitor">安防设备-正常</p>
+			</div>
 
-		<div class="testAlert initPwd">
-			<section style="float: left;margin: 1.5rem 2rem;">
-				<svg class="icon-40-roseo">
-					<use xlink:href="./images/icons/xlink_icon.svg#icon_warning"></use>
-				</svg>
-			</section>
-			密码必须由6-18位的字母、数字或下划线组成。
+			<!--标签栏-->
+			<nav>
+				<a id="myApps" href="http://s.91wego.com/smartHome_1/goHome/0-11206030083809211958-oBMD_tyqmQiAerjhUToYPAas95qQ?winzoom=1#equipment" class="active">我的设备
+					<object class="triangle" data="./X&#39;Link_files/triangle.svg"></object>
+				</a>
+				
+				<a id="scene" href="http://s.91wego.com/smartHome_1/goHome/0-11206030083809211958-oBMD_tyqmQiAerjhUToYPAas95qQ?winzoom=1#scene" class="">智能场景
+					<object class="triangle " data="./X&#39;Link_files/triangle.svg"></object>
+				</a>
+				
+				<a id="addshebei" href="http://s.91wego.com/smartHome_1/goHome/0-11206030083809211958-oBMD_tyqmQiAerjhUToYPAas95qQ?winzoom=1#add" class="">添加设备
+					<object class="triangle" data="./X&#39;Link_files/triangle.svg"></object>
+				</a>
+			</nav>
+		</header>
+		
+		<!-- 下方页面显示 -->
+		<div id="wrapper" style="height: 1012px;">
+			<div class="scroller" style="transition-timing-function: cubic-bezier(0.1, 0.57, 0.1, 1); transition-duration: 0ms; transform: translate(0px, 0px) translateZ(0px);">
+				<div class="content">
+				
+					<!--我的设备-->
+					<div id="equipment" class="active">
+						<!--灯光控制-->
+						<section id="light">
+							<ul>
+								灯光控制
+								<!-- 灯 内容 循环-->
+																										<li id="392" class="expansion" title="equipment">
+										<input type="hidden" id="392_url" value="light_controller-392-1445">
+										<input type="hidden" id="392pic" name="equPic" value="icon_light">
+									 	<input type="hidden" id="392name" name="equName" value="顶灯">
+										<hgroup class="panelLight 392pic"><svg class="icon-86-blue"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_light"></use></svg><name>顶灯</name></hgroup>
+										<div class="index_anti_touch fr">
+											<div class="btn_out_default clearfix onoff" style="margin-top: 3rem;" title="392">
+												<a href="javascript:void(0)" data-btn="group_left" data-btnfn="on" class="btn_default ">on</a>
+												<a href="javascript:void(0)" data-btn="group_right" data-btnfn="off" class="btn_default">off</a>
+											</div>
+										</div>
+										<div id="392_del_light" class="btn_out_hover fr lightDelete" style="margin-top: 3rem; display: none;">
+											<a href="javascript:void(0)" data-btn="one_button" data-btnfn="del" title="equipment-392" class="btn_default equDel"><svg class="icon-46-darkgray"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_del"></use></svg><span>删除</span></a>
+										</div>
+									</li>
+																		<li id="396" class="expansion" title="equipment">
+										<input type="hidden" id="396_url" value="light_controller-396-1445">
+										<input type="hidden" id="396pic" name="equPic" value="icon_light">
+									 	<input type="hidden" id="396name" name="equName" value="仓库">
+										<hgroup class="panelLight 396pic"><svg class="icon-86-blue"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_light"></use></svg><name>仓库</name></hgroup>
+										<div class="index_anti_touch fr">
+											<div class="btn_out_default clearfix onoff" style="margin-top: 3rem;" title="396">
+												<a href="javascript:void(0)" data-btn="group_left" data-btnfn="on" class="btn_default ">on</a>
+												<a href="javascript:void(0)" data-btn="group_right" data-btnfn="off" class="btn_default">off</a>
+											</div>
+										</div>
+										<div id="396_del_light" class="btn_out_hover fr lightDelete" style="margin-top: 3rem; display: none;">
+											<a href="javascript:void(0)" data-btn="one_button" data-btnfn="del" title="equipment-396" class="btn_default equDel"><svg class="icon-46-darkgray"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_del"></use></svg><span>删除</span></a>
+										</div>
+									</li>
+																											<li id="729" class="expansion" title="equipment">
+										<input type="hidden" id="729_url" value="light_controller-729-1445">
+										<input type="hidden" id="729pic" name="equPic" value="icon_light">
+									 	<input type="hidden" id="729name" name="equName" value="右射灯">
+										<hgroup class="panelLight 729pic"><svg class="icon-86-blue"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_light"></use></svg><name>右射灯</name></hgroup>
+										<div class="index_anti_touch fr">
+											<div class="btn_out_default clearfix onoff" style="margin-top: 3rem;" title="729">
+												<a href="javascript:void(0)" data-btn="group_left" data-btnfn="on" class="btn_default ">on</a>
+												<a href="javascript:void(0)" data-btn="group_right" data-btnfn="off" class="btn_default">off</a>
+											</div>
+										</div>
+										<div id="729_del_light" class="btn_out_hover fr lightDelete" style="margin-top: 3rem; display: none;">
+											<a href="javascript:void(0)" data-btn="one_button" data-btnfn="del" title="equipment-729" class="btn_default equDel"><svg class="icon-46-darkgray"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_del"></use></svg><span>删除</span></a>
+										</div>
+									</li>
+																		<li id="730" class="expansion" title="equipment">
+										<input type="hidden" id="730_url" value="light_controller-730-1445">
+										<input type="hidden" id="730pic" name="equPic" value="icon_light">
+									 	<input type="hidden" id="730name" name="equName" value="左射灯">
+										<hgroup class="panelLight 730pic"><svg class="icon-86-blue"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_light"></use></svg><name>左射灯</name></hgroup>
+										<div class="index_anti_touch fr">
+											<div class="btn_out_default clearfix onoff" style="margin-top: 3rem;" title="730">
+												<a href="javascript:void(0)" data-btn="group_left" data-btnfn="on" class="btn_default ">on</a>
+												<a href="javascript:void(0)" data-btn="group_right" data-btnfn="off" class="btn_default">off</a>
+											</div>
+										</div>
+										<div id="730_del_light" class="btn_out_hover fr lightDelete" style="margin-top: 3rem; display: none;">
+											<a href="javascript:void(0)" data-btn="one_button" data-btnfn="del" title="equipment-730" class="btn_default equDel"><svg class="icon-46-darkgray"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_del"></use></svg><span>删除</span></a>
+										</div>
+									</li>
+																																																															<li id="1060" class="expansion" title="equipment">
+										<input type="hidden" id="1060_url" value="light_controller-1060-1445">
+										<input type="hidden" id="1060pic" name="equPic" value="icon_light">
+									 	<input type="hidden" id="1060name" name="equName" value="会议室">
+										<hgroup class="panelLight 1060pic"><svg class="icon-86-blue"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_light"></use></svg><name>会议室</name></hgroup>
+										<div class="index_anti_touch fr">
+											<div class="btn_out_default clearfix onoff" style="margin-top: 3rem;" title="1060">
+												<a href="javascript:void(0)" data-btn="group_left" data-btnfn="on" class="btn_default ">on</a>
+												<a href="javascript:void(0)" data-btn="group_right" data-btnfn="off" class="btn_default">off</a>
+											</div>
+										</div>
+										<div id="1060_del_light" class="btn_out_hover fr lightDelete" style="margin-top: 3rem; display: none;">
+											<a href="javascript:void(0)" data-btn="one_button" data-btnfn="del" title="equipment-1060" class="btn_default equDel"><svg class="icon-46-darkgray"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_del"></use></svg><span>删除</span></a>
+										</div>
+									</li>
+																		<li id="1668" class="expansion" title="equipment">
+										<input type="hidden" id="1668_url" value="light_controller-1668-1445">
+										<input type="hidden" id="1668pic" name="equPic" value="icon_light">
+									 	<input type="hidden" id="1668name" name="equName" value="大厅1">
+										<hgroup class="panelLight 1668pic"><svg class="icon-86-blue"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_light"></use></svg><name>大厅1</name></hgroup>
+										<div class="index_anti_touch fr">
+											<div class="btn_out_default clearfix onoff" style="margin-top: 3rem;" title="1668">
+												<a href="javascript:void(0)" data-btn="group_left" data-btnfn="on" class="btn_default ">on</a>
+												<a href="javascript:void(0)" data-btn="group_right" data-btnfn="off" class="btn_default">off</a>
+											</div>
+										</div>
+										<div id="1668_del_light" class="btn_out_hover fr lightDelete" style="margin-top: 3rem; display: none;">
+											<a href="javascript:void(0)" data-btn="one_button" data-btnfn="del" title="equipment-1668" class="btn_default equDel"><svg class="icon-46-darkgray"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_del"></use></svg><span>删除</span></a>
+										</div>
+									</li>
+																		<li id="1669" class="expansion" title="equipment">
+										<input type="hidden" id="1669_url" value="light_controller-1669-1445">
+										<input type="hidden" id="1669pic" name="equPic" value="icon_light">
+									 	<input type="hidden" id="1669name" name="equName" value="大厅2">
+										<hgroup class="panelLight 1669pic"><svg class="icon-86-blue"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_light"></use></svg><name>大厅2</name></hgroup>
+										<div class="index_anti_touch fr">
+											<div class="btn_out_default clearfix onoff" style="margin-top: 3rem;" title="1669">
+												<a href="javascript:void(0)" data-btn="group_left" data-btnfn="on" class="btn_default ">on</a>
+												<a href="javascript:void(0)" data-btn="group_right" data-btnfn="off" class="btn_default">off</a>
+											</div>
+										</div>
+										<div id="1669_del_light" class="btn_out_hover fr lightDelete" style="margin-top: 3rem; display: none;">
+											<a href="javascript:void(0)" data-btn="one_button" data-btnfn="del" title="equipment-1669" class="btn_default equDel"><svg class="icon-46-darkgray"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_del"></use></svg><span>删除</span></a>
+										</div>
+									</li>
+																		<li id="1672" class="expansion" title="equipment">
+										<input type="hidden" id="1672_url" value="light_controller-1672-1445">
+										<input type="hidden" id="1672pic" name="equPic" value="icon_light">
+									 	<input type="hidden" id="1672name" name="equName" value="大厅3">
+										<hgroup class="panelLight 1672pic"><svg class="icon-86-blue"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_light"></use></svg><name>大厅3</name></hgroup>
+										<div class="index_anti_touch fr">
+											<div class="btn_out_default clearfix onoff" style="margin-top: 3rem;" title="1672">
+												<a href="javascript:void(0)" data-btn="group_left" data-btnfn="on" class="btn_default ">on</a>
+												<a href="javascript:void(0)" data-btn="group_right" data-btnfn="off" class="btn_default">off</a>
+											</div>
+										</div>
+										<div id="1672_del_light" class="btn_out_hover fr lightDelete" style="margin-top: 3rem; display: none;">
+											<a href="javascript:void(0)" data-btn="one_button" data-btnfn="del" title="equipment-1672" class="btn_default equDel"><svg class="icon-46-darkgray"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_del"></use></svg><span>删除</span></a>
+										</div>
+									</li>
+																		<li id="1673" class="expansion" title="equipment">
+										<input type="hidden" id="1673_url" value="light_controller-1673-1445">
+										<input type="hidden" id="1673pic" name="equPic" value="icon_light">
+									 	<input type="hidden" id="1673name" name="equName" value="大厅4">
+										<hgroup class="panelLight 1673pic"><svg class="icon-86-blue"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_light"></use></svg><name>大厅4</name></hgroup>
+										<div class="index_anti_touch fr">
+											<div class="btn_out_default clearfix onoff" style="margin-top: 3rem;" title="1673">
+												<a href="javascript:void(0)" data-btn="group_left" data-btnfn="on" class="btn_default ">on</a>
+												<a href="javascript:void(0)" data-btn="group_right" data-btnfn="off" class="btn_default">off</a>
+											</div>
+										</div>
+										<div id="1673_del_light" class="btn_out_hover fr lightDelete" style="margin-top: 3rem; display: none;">
+											<a href="javascript:void(0)" data-btn="one_button" data-btnfn="del" title="equipment-1673" class="btn_default equDel"><svg class="icon-46-darkgray"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_del"></use></svg><span>删除</span></a>
+										</div>
+									</li>
+																		<li id="1674" class="expansion" title="equipment">
+										<input type="hidden" id="1674_url" value="light_controller-1674-1445">
+										<input type="hidden" id="1674pic" name="equPic" value="icon_light">
+									 	<input type="hidden" id="1674name" name="equName" value="大厅5">
+										<hgroup class="panelLight 1674pic"><svg class="icon-86-blue"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_light"></use></svg><name>大厅5</name></hgroup>
+										<div class="index_anti_touch fr">
+											<div class="btn_out_default clearfix onoff" style="margin-top: 3rem;" title="1674">
+												<a href="javascript:void(0)" data-btn="group_left" data-btnfn="on" class="btn_default ">on</a>
+												<a href="javascript:void(0)" data-btn="group_right" data-btnfn="off" class="btn_default">off</a>
+											</div>
+										</div>
+										<div id="1674_del_light" class="btn_out_hover fr lightDelete" style="margin-top: 3rem; display: none;">
+											<a href="javascript:void(0)" data-btn="one_button" data-btnfn="del" title="equipment-1674" class="btn_default equDel"><svg class="icon-46-darkgray"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_del"></use></svg><span>删除</span></a>
+										</div>
+									</li>
+																		<li id="1675" class="expansion" title="equipment">
+										<input type="hidden" id="1675_url" value="light_controller-1675-1445">
+										<input type="hidden" id="1675pic" name="equPic" value="icon_light">
+									 	<input type="hidden" id="1675name" name="equName" value="大厅6">
+										<hgroup class="panelLight 1675pic"><svg class="icon-86-blue"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_light"></use></svg><name>大厅6</name></hgroup>
+										<div class="index_anti_touch fr">
+											<div class="btn_out_default clearfix onoff" style="margin-top: 3rem;" title="1675">
+												<a href="javascript:void(0)" data-btn="group_left" data-btnfn="on" class="btn_default ">on</a>
+												<a href="javascript:void(0)" data-btn="group_right" data-btnfn="off" class="btn_default">off</a>
+											</div>
+										</div>
+										<div id="1675_del_light" class="btn_out_hover fr lightDelete" style="margin-top: 3rem; display: none;">
+											<a href="javascript:void(0)" data-btn="one_button" data-btnfn="del" title="equipment-1675" class="btn_default equDel"><svg class="icon-46-darkgray"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_del"></use></svg><span>删除</span></a>
+										</div>
+									</li>
+																		<li id="1676" class="expansion" title="equipment">
+										<input type="hidden" id="1676_url" value="light_controller-1676-1445">
+										<input type="hidden" id="1676pic" name="equPic" value="icon_light">
+									 	<input type="hidden" id="1676name" name="equName" value="大厅7">
+										<hgroup class="panelLight 1676pic"><svg class="icon-86-blue"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_light"></use></svg><name>大厅7</name></hgroup>
+										<div class="index_anti_touch fr">
+											<div class="btn_out_default clearfix onoff" style="margin-top: 3rem;" title="1676">
+												<a href="javascript:void(0)" data-btn="group_left" data-btnfn="on" class="btn_default ">on</a>
+												<a href="javascript:void(0)" data-btn="group_right" data-btnfn="off" class="btn_default">off</a>
+											</div>
+										</div>
+										<div id="1676_del_light" class="btn_out_hover fr lightDelete" style="margin-top: 3rem; display: none;">
+											<a href="javascript:void(0)" data-btn="one_button" data-btnfn="del" title="equipment-1676" class="btn_default equDel"><svg class="icon-46-darkgray"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_del"></use></svg><span>删除</span></a>
+										</div>
+									</li>
+																		<li id="1677" class="expansion" title="equipment">
+										<input type="hidden" id="1677_url" value="light_controller-1677-1445">
+										<input type="hidden" id="1677pic" name="equPic" value="icon_light">
+									 	<input type="hidden" id="1677name" name="equName" value="大厅8">
+										<hgroup class="panelLight 1677pic"><svg class="icon-86-blue"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_light"></use></svg><name>大厅8</name></hgroup>
+										<div class="index_anti_touch fr">
+											<div class="btn_out_default clearfix onoff" style="margin-top: 3rem;" title="1677">
+												<a href="javascript:void(0)" data-btn="group_left" data-btnfn="on" class="btn_default ">on</a>
+												<a href="javascript:void(0)" data-btn="group_right" data-btnfn="off" class="btn_default">off</a>
+											</div>
+										</div>
+										<div id="1677_del_light" class="btn_out_hover fr lightDelete" style="margin-top: 3rem; display: none;">
+											<a href="javascript:void(0)" data-btn="one_button" data-btnfn="del" title="equipment-1677" class="btn_default equDel"><svg class="icon-46-darkgray"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_del"></use></svg><span>删除</span></a>
+										</div>
+									</li>
+																																																																								<li id="1944" class="expansion" title="equipment">
+										<input type="hidden" id="1944_url" value="light_controller-1944-1445">
+										<input type="hidden" id="1944pic" name="equPic" value="icon_light">
+									 	<input type="hidden" id="1944name" name="equName" value="实验">
+										<hgroup class="panelLight 1944pic"><svg class="icon-86-blue"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_light"></use></svg><name>实验</name></hgroup>
+										<div class="index_anti_touch fr">
+											<div class="btn_out_default clearfix onoff" style="margin-top: 3rem;" title="1944">
+												<a href="javascript:void(0)" data-btn="group_left" data-btnfn="on" class="btn_default ">on</a>
+												<a href="javascript:void(0)" data-btn="group_right" data-btnfn="off" class="btn_default">off</a>
+											</div>
+										</div>
+										<div id="1944_del_light" class="btn_out_hover fr lightDelete" style="margin-top: 3rem; display: none;">
+											<a href="javascript:void(0)" data-btn="one_button" data-btnfn="del" title="equipment-1944" class="btn_default equDel"><svg class="icon-46-darkgray"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_del"></use></svg><span>删除</span></a>
+										</div>
+									</li>
+							</ul>						</section>
+
+						<!--转接插座-->
+						<section id="socket">
+							<ul>插座控制
+								<!-- 插座 内容 循环-->
+																																																																																																		<li id="910" class="expansion" title="equipment">
+										<input type="hidden" id="910_url" value="Socket_controller-910-1445">
+										<input type="hidden" id="910pic" name="equPic" value="icon_adapterSocket">
+									 	<input type="hidden" id="910name" name="equName" value="台灯">
+										<hgroup class="panelSocket 910pic"><svg class="icon-86-blue"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_adapterSocket"></use></svg><name>台灯</name></hgroup>
+										<div class="index_anti_touch fr">
+											<div class="btn_out_default clearfix" style="margin-top: 3rem;" title="910">
+												<a href="javascript:void(0)" data-btn="group_left" data-btnfn="on" class="btn_default">on</a>
+												<a href="javascript:void(0)" data-btn="group_right" data-btnfn="off" class="btn_default">off</a>
+											</div>
+										</div>
+										<div id="910_del_Socket" name="910" class="btn_out_hover fr socketDelete" style="margin-top: 3rem; display: none;">
+											<a href="javascript:void(0)" data-btn="one_button" data-btnfn="del" title="equipment-910" class="btn_default equDel"><svg class="icon-46-darkgray"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_del"></use></svg><span>删除</span></a>
+										</div>
+									</li>
+																																																																																																																																																																</ul>						</section>
+						
+						<!--窗帘遥控-->
+						<section id="curtain">
+							<ul>窗帘遥控
+								<!-- 窗帘内容 -->
+																																																																							<li id="744" class="expansion" title="equipment">
+										<input type="hidden" id="744_url" value="curtains_controller-744-1445">
+										<input type="hidden" id="744pic" name="equPic" value="icon_curtain">
+									 	<input type="hidden" id="744name" name="equName" value="窗帘">
+										<hgroup class="panelLight 744pic"><svg class="icon-86-blue"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_curtain"></use></svg><name>窗帘</name></hgroup>
+										<div class="index_anti_touch fr">
+											<div class="btn_out_default clearfix onoff" style="margin-top: 3rem;" title="744">
+												<a href="javascript:void(0)" data-btn="group_left" data-btnfn="on" class="btn_default threeBtn">on</a>
+												<a href="javascript:void(0)" data-btn="group_mid" data-btnfn="off" class="btn_default threeBtn">stop</a>
+												<a href="javascript:void(0)" data-btn="group_right" data-btnfn="stop" class="btn_default threeBtn">off</a>
+											</div>
+										</div>
+										<div id="744_del_curtains" name="744" class="btn_out_hover fr curtainsDelete" style="margin-top: 3rem; display: none;">
+											<a href="javascript:void(0)" data-btn="one_button" data-btnfn="del" title="equipment-744" class="btn_default equDel"><svg class="icon-46-darkgray"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_del"></use></svg><span>删除</span></a>
+										</div>
+									</li>
+																																																																																																																																																																																											</ul>						</section>
+						
+						<!--开窗器遥控-->
+						<section id="window">
+							<ul>开窗器遥控
+								<!-- 开窗器内容 -->
+																																																																																<li id="747" class="expansion" title="equipment">
+										<input type="hidden" id="747_url" value="openWindow_controller-747-1445">
+										<input type="hidden" id="747pic" name="equPic" value="icon_windowOpener">
+									 	<input type="hidden" id="747name" name="equName" value="开窗器">
+										<hgroup class="panelLight 747pic"><svg class="icon-86-blue"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_windowOpener"></use></svg><name>开窗器</name></hgroup>
+										<div class="index_anti_touch fr">
+											<div class="btn_out_default clearfix onoff" style="margin-top: 3rem;" title="747">
+												<a href="javascript:void(0)" data-btn="group_left" data-btnfn="on" class="btn_default threeBtn">on</a>
+												<a href="javascript:void(0)" data-btn="group_mid" data-btnfn="off" class="btn_default threeBtn">stop</a>
+												<a href="javascript:void(0)" data-btn="group_right" data-btnfn="stop" class="btn_default threeBtn">off</a>
+											</div>
+										</div>
+										<div id="747_del_window" name="747" class="btn_out_hover fr windowDelete" style="margin-top: 3rem; display: none;">
+											<a href="javascript:void(0)" data-btn="one_button" data-btnfn="del" title="equipment-747" class="btn_default equDel"><svg class="icon-46-darkgray"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_del"></use></svg><span>删除</span></a>
+										</div>
+									</li>
+																																																																																																																																																																																		</ul>						</section>
+
+						<!--红外遥控-->
+						<section id="telecontrol">
+							<ul>红外遥控
+								<!-- 红外内容 -->
+																																																																																									<li id="761" class="expansion" title="equipment">
+										<input type="hidden" id="761_url" value="TV_controller-761-1445">
+										<input type="hidden" id="761pic" name="equPic" value="icon_TV">
+									 	<input type="hidden" id="761name" name="equName" value="电视">
+										<hgroup class="panelRed 761pic"><svg class="icon-86-blue"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_TV"></use></svg><name>电视</name></hgroup>
+										<icon class="fr">
+											<svg class="icon-70-lightgray">
+												<use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_right"></use>
+											</svg>
+										</icon>
+										<div id="761_del_Red" name="761" class="btn_out_hover fr redDelete" style="margin-top: 3rem; display: none;">
+											<a href="javascript:void(0)" data-btn="one_button" data-btnfn="del" title="equipment-761" class="btn_default equDel"><svg class="icon-46-darkgray"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_del"></use></svg><span>删除</span></a>
+										</div>
+									</li>
+																											<li id="1055" class="expansion" title="equipment">
+										<input type="hidden" id="1055_url" value="AirConditioner_controller-1055-1445">
+										<input type="hidden" id="1055pic" name="equPic" value="icon_airConditioning">
+									 	<input type="hidden" id="1055name" name="equName" value="空调">
+										<hgroup class="panelRed 1055pic"><svg class="icon-86-blue"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_airConditioning"></use></svg><name>空调</name></hgroup>
+										<icon class="fr">
+											<svg class="icon-70-lightgray">
+												<use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_right"></use>
+											</svg>
+										</icon>
+										<div id="1055_del_Red" name="1055" class="btn_out_hover fr redDelete" style="margin-top: 3rem; display: none;">
+											<a href="javascript:void(0)" data-btn="one_button" data-btnfn="del" title="equipment-1055" class="btn_default equDel"><svg class="icon-46-darkgray"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_del"></use></svg><span>删除</span></a>
+										</div>
+									</li>
+																																																																																																																																																							</ul>						</section>
+						
+						<section id="manipulator">
+							<ul>
+								机械手控制
+								<!-- 机械手 内容 循环-->
+																																																																																																																																																																																																																																																		<li id="1767" class="expansion" title="equipment">
+										<input type="hidden" id="1767_url" value="manipulator_controller-1767-1445">
+										<input type="hidden" id="1767pic" name="equPic" value="icon_manipulator">
+									 	<input type="hidden" id="1767name" name="equName" value="机械手">
+										<hgroup class="panelLight 1767pic"><svg class="icon-86-blue"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_manipulator"></use></svg><name>机械手</name></hgroup>
+										<div class="index_anti_touch fr">
+											<div class="btn_out_default clearfix onoff" style="margin-top: 3rem;" title="1767">
+												<a href="javascript:void(0)" data-btn="group_left" data-btnfn="on" class="btn_default ">on</a>
+												<a href="javascript:void(0)" data-btn="group_right" data-btnfn="off" class="btn_default">off</a>
+											</div>
+										</div>
+										<div id="1767_del_light" class="btn_out_hover fr lightDelete" style="margin-top: 3rem; display: none;">
+											<a href="javascript:void(0)" data-btn="one_button" data-btnfn="del" title="equipment-1767" class="btn_default equDel"><svg class="icon-46-darkgray"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_del"></use></svg><span>删除</span></a>
+										</div>
+									</li>
+																</ul>						</section>
+						
+						<!--安防设备-->
+						<section id="security">
+							<ul>安防设备
+								<!-- 安防内容 -->
+																																												<li id="424" class="expansion" title="security">
+										<input type="hidden" id="424_url" value="warning_controller-424-1445">
+										<input type="hidden" id="424pic" name="equPic" value="icon_smoke">
+									 	<input type="hidden" id="424name" name="equName" value="烟雾报警">
+										<hgroup class="panelWarn 424pic"><svg class="icon-86-blue"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_smoke"></use></svg><name>烟雾报警</name></hgroup>
+										<div class="index_anti_touch fr">
+											<div class="btn_out_default clearfix" style="margin-top: 3rem;">
+												<div class="switch_wrap clearfix">
+													<a href="javascript:void(0)" data-switch="switch_on" class="switch_btn_s">设防</a>
+													<a href="javascript:void(0)" data-switch="switch_off" class="switch_btn_s">撤防</a>
+																										<block id="422" data-switch-block="switch_on"></block>
+																									</div>											</div>
+										</div>
+										<div id="424_del_security" name="424" class="btn_out_hover fr securityDelete" style="margin-top: 3rem; display: none;">
+											<a href="javascript:void(0)" data-btn="one_button" data-btnfn="del" title="equipment-424" class="btn_default equDel"><svg class="icon-46-darkgray"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_del"></use></svg><span>删除</span></a>
+										</div>
+									</li>
+																																																																																																																																																																		<li id="1759" class="expansion" title="security">
+										<input type="hidden" id="1759_url" value="warning_controller-1759-1445">
+										<input type="hidden" id="1759pic" name="equPic" value="icon_door">
+									 	<input type="hidden" id="1759name" name="equName" value="SOS">
+										<hgroup class="panelWarn 1759pic"><svg class="icon-86-blue"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_door"></use></svg><name>SOS</name></hgroup>
+										<div class="index_anti_touch fr">
+											<div class="btn_out_default clearfix" style="margin-top: 3rem;">
+												<div class="switch_wrap clearfix">
+													<a href="javascript:void(0)" data-switch="switch_on" class="switch_btn_s">设防</a>
+													<a href="javascript:void(0)" data-switch="switch_off" class="switch_btn_s">撤防</a>
+																										<block id="1757" data-switch-block="switch_on"></block>
+																									</div>											</div>
+										</div>
+										<div id="1759_del_security" name="1759" class="btn_out_hover fr securityDelete" style="margin-top: 3rem; display: none;">
+											<a href="javascript:void(0)" data-btn="one_button" data-btnfn="del" title="equipment-1759" class="btn_default equDel"><svg class="icon-46-darkgray"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_del"></use></svg><span>删除</span></a>
+										</div>
+									</li>
+																		<li id="1761" class="expansion" title="security">
+										<input type="hidden" id="1761_url" value="warning_controller-1761-1445">
+										<input type="hidden" id="1761pic" name="equPic" value="icon_door">
+									 	<input type="hidden" id="1761name" name="equName" value="8309门磁">
+										<hgroup class="panelWarn 1761pic"><svg class="icon-86-blue"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_door"></use></svg><name>8309门磁</name></hgroup>
+										<div class="index_anti_touch fr">
+											<div class="btn_out_default clearfix" style="margin-top: 3rem;">
+												<div class="switch_wrap clearfix">
+													<a href="javascript:void(0)" data-switch="switch_on" class="switch_btn_s">设防</a>
+													<a href="javascript:void(0)" data-switch="switch_off" class="switch_btn_s">撤防</a>
+																										<block id="1759" data-switch-block="switch_on"></block>
+																									</div>											</div>
+										</div>
+										<div id="1761_del_security" name="1761" class="btn_out_hover fr securityDelete" style="margin-top: 3rem; display: none;">
+											<a href="javascript:void(0)" data-btn="one_button" data-btnfn="del" title="equipment-1761" class="btn_default equDel"><svg class="icon-46-darkgray"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_del"></use></svg><span>删除</span></a>
+										</div>
+									</li>
+																		<li id="1764" class="expansion" title="security">
+										<input type="hidden" id="1764_url" value="warning_controller-1764-1445">
+										<input type="hidden" id="1764pic" name="equPic" value="icon_gas">
+									 	<input type="hidden" id="1764name" name="equName" value="燃气警报">
+										<hgroup class="panelWarn 1764pic"><svg class="icon-86-blue"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_gas"></use></svg><name>燃气警报</name></hgroup>
+										<div class="index_anti_touch fr">
+											<div class="btn_out_default clearfix" style="margin-top: 3rem;">
+												<div class="switch_wrap clearfix">
+													<a href="javascript:void(0)" data-switch="switch_on" class="switch_btn_s">设防</a>
+													<a href="javascript:void(0)" data-switch="switch_off" class="switch_btn_s">撤防</a>
+																										<block id="1762" data-switch-block="switch_on"></block>
+																									</div>											</div>
+										</div>
+										<div id="1764_del_security" name="1764" class="btn_out_hover fr securityDelete" style="margin-top: 3rem; display: none;">
+											<a href="javascript:void(0)" data-btn="one_button" data-btnfn="del" title="equipment-1764" class="btn_default equDel"><svg class="icon-46-darkgray"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_del"></use></svg><span>删除</span></a>
+										</div>
+									</li>
+																		<li id="1765" class="expansion" title="security">
+										<input type="hidden" id="1765_url" value="warning_controller-1765-1445">
+										<input type="hidden" id="1765pic" name="equPic" value="icon_door">
+									 	<input type="hidden" id="1765name" name="equName" value="红外幕帘">
+										<hgroup class="panelWarn 1765pic"><svg class="icon-86-blue"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_door"></use></svg><name>红外幕帘</name></hgroup>
+										<div class="index_anti_touch fr">
+											<div class="btn_out_default clearfix" style="margin-top: 3rem;">
+												<div class="switch_wrap clearfix">
+													<a href="javascript:void(0)" data-switch="switch_on" class="switch_btn_s">设防</a>
+													<a href="javascript:void(0)" data-switch="switch_off" class="switch_btn_s">撤防</a>
+																										<block id="1763" data-switch-block="switch_on"></block>
+																									</div>											</div>
+										</div>
+										<div id="1765_del_security" name="1765" class="btn_out_hover fr securityDelete" style="margin-top: 3rem; display: none;">
+											<a href="javascript:void(0)" data-btn="one_button" data-btnfn="del" title="equipment-1765" class="btn_default equDel"><svg class="icon-46-darkgray"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_del"></use></svg><span>删除</span></a>
+										</div>
+									</li>
+																		<li id="1766" class="expansion" title="security">
+										<input type="hidden" id="1766_url" value="warning_controller-1766-1445">
+										<input type="hidden" id="1766pic" name="equPic" value="icon_water">
+									 	<input type="hidden" id="1766name" name="equName" value="水浸警报">
+										<hgroup class="panelWarn 1766pic"><svg class="icon-86-blue"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_water"></use></svg><name>水浸警报</name></hgroup>
+										<div class="index_anti_touch fr">
+											<div class="btn_out_default clearfix" style="margin-top: 3rem;">
+												<div class="switch_wrap clearfix">
+													<a href="javascript:void(0)" data-switch="switch_on" class="switch_btn_s">设防</a>
+													<a href="javascript:void(0)" data-switch="switch_off" class="switch_btn_s">撤防</a>
+																										<block id="1764" data-switch-block="switch_on"></block>
+																									</div>											</div>
+										</div>
+										<div id="1766_del_security" name="1766" class="btn_out_hover fr securityDelete" style="margin-top: 3rem; display: none;">
+											<a href="javascript:void(0)" data-btn="one_button" data-btnfn="del" title="equipment-1766" class="btn_default equDel"><svg class="icon-46-darkgray"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_del"></use></svg><span>删除</span></a>
+										</div>
+									</li>
+																									</ul>						</section>
+						
+						<!-- 当设备为空时 提示语 -->
+						<section id="promp">
+							<label>此处空空如也～<br>点击右侧"添加设备"进行添加。 </label>
+						</section>
+					</div>
+
+					
+					<!--智能场景-->
+					<div id="scene_index">
+
+						<!--智能场景列表-->
+						<section id="scene_list">
+							<ul>
+								<!-- 循环 2015 12 11 删除编辑按钮 主页直接点击场景进入场景页面 -->
+						  		 									<li id="144" class="expansion" title="goScene">
+									 <input type="hidden" id="144pic" name="scenePic" value="icon_out">
+									 <input type="hidden" id="144name" name="sceneName" value="上班">
+										<hgroup class="144pic"><svg class="icon-86-blue"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_out"></use></svg><name>上班</name></hgroup>
+										<div class="btn_out_default fr" style="margin-top: 3rem;">
+											<a href="javascript:void(0)" data-btn="one_button" title="144" data-btnfn="run" class="btn_default sceneOpen">开启</a>
+										</div>
+										<div class="btn_out_hover fr" style="margin-top: 3rem; display: none;">
+											<a href="javascript:void(0)" data-btn="group_left" data-btnfn="del" title="scene-144" class="btn_default sceneDelete"><svg class="icon-46-darkgray"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_del"></use></svg><span>删除</span></a>
+										</div>
+									</li>
+									<li id="145" class="expansion" title="goScene">
+									 <input type="hidden" id="145pic" name="scenePic" value="icon_enter">
+									 <input type="hidden" id="145name" name="sceneName" value="回家">
+										<hgroup class="145pic"><svg class="icon-86-blue"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_enter"></use></svg><name>回家</name></hgroup>
+										<div class="btn_out_default fr" style="margin-top: 3rem;">
+											<a href="javascript:void(0)" data-btn="one_button" title="145" data-btnfn="run" class="btn_default sceneOpen">开启</a>
+										</div>
+										<div class="btn_out_hover fr" style="margin-top: 3rem; display: none;">
+											<a href="javascript:void(0)" data-btn="group_left" data-btnfn="del" title="scene-145" class="btn_default sceneDelete"><svg class="icon-46-darkgray"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_del"></use></svg><span>删除</span></a>
+										</div>
+									</li>
+									<li id="202" class="expansion" title="goScene">
+									 <input type="hidden" id="202pic" name="scenePic" value="icon_light">
+									 <input type="hidden" id="202name" name="sceneName" value="办公A区开">
+										<hgroup class="202pic"><svg class="icon-86-blue"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_light"></use></svg><name>办公A区开</name></hgroup>
+										<div class="btn_out_default fr" style="margin-top: 3rem;">
+											<a href="javascript:void(0)" data-btn="one_button" title="202" data-btnfn="run" class="btn_default sceneOpen">开启</a>
+										</div>
+										<div class="btn_out_hover fr" style="margin-top: 3rem; display: none;">
+											<a href="javascript:void(0)" data-btn="group_left" data-btnfn="del" title="scene-202" class="btn_default sceneDelete"><svg class="icon-46-darkgray"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_del"></use></svg><span>删除</span></a>
+										</div>
+									</li>
+									<li id="203" class="expansion" title="goScene">
+									 <input type="hidden" id="203pic" name="scenePic" value="icon_light">
+									 <input type="hidden" id="203name" name="sceneName" value="办公A区关">
+										<hgroup class="203pic"><svg class="icon-86-blue"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_light"></use></svg><name>办公A区关</name></hgroup>
+										<div class="btn_out_default fr" style="margin-top: 3rem;">
+											<a href="javascript:void(0)" data-btn="one_button" title="203" data-btnfn="run" class="btn_default sceneOpen">开启</a>
+										</div>
+										<div class="btn_out_hover fr" style="margin-top: 3rem; display: none;">
+											<a href="javascript:void(0)" data-btn="group_left" data-btnfn="del" title="scene-203" class="btn_default sceneDelete"><svg class="icon-46-darkgray"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_del"></use></svg><span>删除</span></a>
+										</div>
+									</li>
+									<li id="206" class="expansion" title="goScene">
+									 <input type="hidden" id="206pic" name="scenePic" value="icon_sleep">
+									 <input type="hidden" id="206name" name="sceneName" value="充电插座">
+										<hgroup class="206pic"><svg class="icon-86-blue"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_sleep"></use></svg><name>充电插座</name></hgroup>
+										<div class="btn_out_default fr" style="margin-top: 3rem;">
+											<a href="javascript:void(0)" data-btn="one_button" title="206" data-btnfn="run" class="btn_default sceneOpen">开启</a>
+										</div>
+										<div class="btn_out_hover fr" style="margin-top: 3rem; display: none;">
+											<a href="javascript:void(0)" data-btn="group_left" data-btnfn="del" title="scene-206" class="btn_default sceneDelete"><svg class="icon-46-darkgray"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_del"></use></svg><span>删除</span></a>
+										</div>
+									</li>
+									<li id="208" class="expansion" title="goScene">
+									 <input type="hidden" id="208pic" name="scenePic" value="icon_enter">
+									 <input type="hidden" id="208name" name="sceneName" value="打开会议室门">
+										<hgroup class="208pic"><svg class="icon-86-blue"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_enter"></use></svg><name>打开会议室门</name></hgroup>
+										<div class="btn_out_default fr" style="margin-top: 3rem;">
+											<a href="javascript:void(0)" data-btn="one_button" title="208" data-btnfn="run" class="btn_default sceneOpen">开启</a>
+										</div>
+										<div class="btn_out_hover fr" style="margin-top: 3rem; display: none;">
+											<a href="javascript:void(0)" data-btn="group_left" data-btnfn="del" title="scene-208" class="btn_default sceneDelete"><svg class="icon-46-darkgray"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_del"></use></svg><span>删除</span></a>
+										</div>
+									</li>
+									<li id="209" class="expansion" title="goScene">
+									 <input type="hidden" id="209pic" name="scenePic" value="icon_out">
+									 <input type="hidden" id="209name" name="sceneName" value="下班">
+										<hgroup class="209pic"><svg class="icon-86-blue"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_out"></use></svg><name>下班</name></hgroup>
+										<div class="btn_out_default fr" style="margin-top: 3rem;">
+											<a href="javascript:void(0)" data-btn="one_button" title="209" data-btnfn="run" class="btn_default sceneOpen">开启</a>
+										</div>
+										<div class="btn_out_hover fr" style="margin-top: 3rem; display: none;">
+											<a href="javascript:void(0)" data-btn="group_left" data-btnfn="del" title="scene-209" class="btn_default sceneDelete"><svg class="icon-46-darkgray"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_del"></use></svg><span>删除</span></a>
+										</div>
+									</li>
+									<li id="219" class="expansion" title="goScene">
+									 <input type="hidden" id="219pic" name="scenePic" value="icon_out">
+									 <input type="hidden" id="219name" name="sceneName" value="外出旅游">
+										<hgroup class="219pic"><svg class="icon-86-blue"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_out"></use></svg><name>外出旅游</name></hgroup>
+										<div class="btn_out_default fr" style="margin-top: 3rem;">
+											<a href="javascript:void(0)" data-btn="one_button" title="219" data-btnfn="run" class="btn_default sceneOpen">开启</a>
+										</div>
+										<div class="btn_out_hover fr" style="margin-top: 3rem; display: none;">
+											<a href="javascript:void(0)" data-btn="group_left" data-btnfn="del" title="scene-219" class="btn_default sceneDelete"><svg class="icon-46-darkgray"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_del"></use></svg><span>删除</span></a>
+										</div>
+									</li>
+									<li id="250" class="expansion" title="goScene">
+									 <input type="hidden" id="250pic" name="scenePic" value="icon_light">
+									 <input type="hidden" id="250name" name="sceneName" value="客厅灯">
+										<hgroup class="250pic"><svg class="icon-86-blue"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_light"></use></svg><name>客厅灯</name></hgroup>
+										<div class="btn_out_default fr" style="margin-top: 3rem;">
+											<a href="javascript:void(0)" data-btn="one_button" title="250" data-btnfn="run" class="btn_default sceneOpen">开启</a>
+										</div>
+										<div class="btn_out_hover fr" style="margin-top: 3rem; display: none;">
+											<a href="javascript:void(0)" data-btn="group_left" data-btnfn="del" title="scene-250" class="btn_default sceneDelete"><svg class="icon-46-darkgray"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_del"></use></svg><span>删除</span></a>
+										</div>
+									</li>
+									<li id="269" class="expansion" title="goScene">
+									 <input type="hidden" id="269pic" name="scenePic" value="icon_etc">
+									 <input type="hidden" id="269name" name="sceneName" value="关闭空调">
+										<hgroup class="269pic"><svg class="icon-86-blue"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_etc"></use></svg><name>关闭空调</name></hgroup>
+										<div class="btn_out_default fr" style="margin-top: 3rem;">
+											<a href="javascript:void(0)" data-btn="one_button" title="269" data-btnfn="run" class="btn_default sceneOpen">开启</a>
+										</div>
+										<div class="btn_out_hover fr" style="margin-top: 3rem; display: none;">
+											<a href="javascript:void(0)" data-btn="group_left" data-btnfn="del" title="scene-269" class="btn_default sceneDelete"><svg class="icon-46-darkgray"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_del"></use></svg><span>删除</span></a>
+										</div>
+									</li>
+									<li id="302" class="expansion" title="goScene">
+									 <input type="hidden" id="302pic" name="scenePic" value="icon_etc">
+									 <input type="hidden" id="302name" name="sceneName" value="打开空调">
+										<hgroup class="302pic"><svg class="icon-86-blue"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_etc"></use></svg><name>打开空调</name></hgroup>
+										<div class="btn_out_default fr" style="margin-top: 3rem;">
+											<a href="javascript:void(0)" data-btn="one_button" title="302" data-btnfn="run" class="btn_default sceneOpen">开启</a>
+										</div>
+										<div class="btn_out_hover fr" style="margin-top: 3rem; display: none;">
+											<a href="javascript:void(0)" data-btn="group_left" data-btnfn="del" title="scene-302" class="btn_default sceneDelete"><svg class="icon-46-darkgray"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_del"></use></svg><span>删除</span></a>
+										</div>
+									</li>
+									<li id="558" class="expansion" title="goScene">
+									 <input type="hidden" id="558pic" name="scenePic" value="icon_light">
+									 <input type="hidden" id="558name" name="sceneName" value="办公区1,2,4">
+										<hgroup class="558pic"><svg class="icon-86-blue"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_light"></use></svg><name>办公区1,2,4</name></hgroup>
+										<div class="btn_out_default fr" style="margin-top: 3rem;">
+											<a href="javascript:void(0)" data-btn="one_button" title="558" data-btnfn="run" class="btn_default sceneOpen">开启</a>
+										</div>
+										<div class="btn_out_hover fr" style="margin-top: 3rem; display: none;">
+											<a href="javascript:void(0)" data-btn="group_left" data-btnfn="del" title="scene-558" class="btn_default sceneDelete"><svg class="icon-46-darkgray"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_del"></use></svg><span>删除</span></a>
+										</div>
+									</li>
+							</ul>							<div style="height: 14.4rem;"></div>
+						</section>
+					</div>
+					
+
+					<!--添加设备-->
+					<div id="add_equipment">
+
+						<!--添加设备列表-->
+						<section id="add_equipment_list">
+							<ul>
+								<!-- 循环 -->
+																<li id="1" class="add_ctrl" title="addCtrl">
+								<input type="hidden" id="1pic" name="ctrlPic" value="icon_light">
+								<input type="hidden" id="1name" name="ctrlName" value="灯控">
+									<hgroup class="1pic"><svg class="icon-86-blue"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_light"></use></svg><name>添加灯控控制</name></hgroup>
+									<icon class="fr rightIco"><svg class="icon-70-lightgray"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_right"></use></svg></icon>
+								</li>
+								<li id="2" class="add_ctrl" title="addCtrl">
+								<input type="hidden" id="2pic" name="ctrlPic" value="icon_adapterSocket">
+								<input type="hidden" id="2name" name="ctrlName" value="插座">
+									<hgroup class="2pic"><svg class="icon-86-blue"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_adapterSocket"></use></svg><name>添加插座控制</name></hgroup>
+									<icon class="fr rightIco"><svg class="icon-70-lightgray"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_right"></use></svg></icon>
+								</li>
+								<li id="3" class="add_ctrl" title="addCtrl">
+								<input type="hidden" id="3pic" name="ctrlPic" value="icon_wallSocket">
+								<input type="hidden" id="3name" name="ctrlName" value="墙面插座">
+									<hgroup class="3pic"><svg class="icon-86-blue"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_wallSocket"></use></svg><name>添加墙面插座控制</name></hgroup>
+									<icon class="fr rightIco"><svg class="icon-70-lightgray"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_right"></use></svg></icon>
+								</li>
+								<li id="4" class="add_ctrl" title="addCtrl">
+								<input type="hidden" id="4pic" name="ctrlPic" value="icon_curtain">
+								<input type="hidden" id="4name" name="ctrlName" value="窗帘">
+									<hgroup class="4pic"><svg class="icon-86-blue"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_curtain"></use></svg><name>添加窗帘控制</name></hgroup>
+									<icon class="fr rightIco"><svg class="icon-70-lightgray"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_right"></use></svg></icon>
+								</li>
+								<li id="5" class="add_ctrl" title="addCtrl">
+								<input type="hidden" id="5pic" name="ctrlPic" value="icon_windowOpener">
+								<input type="hidden" id="5name" name="ctrlName" value="开窗器">
+									<hgroup class="5pic"><svg class="icon-86-blue"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_windowOpener"></use></svg><name>添加开窗器控制</name></hgroup>
+									<icon class="fr rightIco"><svg class="icon-70-lightgray"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_right"></use></svg></icon>
+								</li>
+								<li id="6" class="add_ctrl" title="addCtrl">
+								<input type="hidden" id="6pic" name="ctrlPic" value="icon_airConditioning">
+								<input type="hidden" id="6name" name="ctrlName" value="空调">
+									<hgroup class="6pic"><svg class="icon-86-blue"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_airConditioning"></use></svg><name>添加空调控制</name></hgroup>
+									<icon class="fr rightIco"><svg class="icon-70-lightgray"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_right"></use></svg></icon>
+								</li>
+								<li id="7" class="add_ctrl" title="addCtrl">
+								<input type="hidden" id="7pic" name="ctrlPic" value="icon_TV">
+								<input type="hidden" id="7name" name="ctrlName" value="电视">
+									<hgroup class="7pic"><svg class="icon-86-blue"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_TV"></use></svg><name>添加电视控制</name></hgroup>
+									<icon class="fr rightIco"><svg class="icon-70-lightgray"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_right"></use></svg></icon>
+								</li>
+								<li id="8" class="add_ctrl" title="addCtrl">
+								<input type="hidden" id="8pic" name="ctrlPic" value="icon_STB">
+								<input type="hidden" id="8name" name="ctrlName" value="机顶盒">
+									<hgroup class="8pic"><svg class="icon-86-blue"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_STB"></use></svg><name>添加机顶盒控制</name></hgroup>
+									<icon class="fr rightIco"><svg class="icon-70-lightgray"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_right"></use></svg></icon>
+								</li>
+								<li id="9" class="add_ctrl" title="addCtrl">
+								<input type="hidden" id="9pic" name="ctrlPic" value="icon_gas">
+								<input type="hidden" id="9name" name="ctrlName" value="燃气警报">
+									<hgroup class="9pic"><svg class="icon-86-blue"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_gas"></use></svg><name>添加燃气警报控制</name></hgroup>
+									<icon class="fr rightIco"><svg class="icon-70-lightgray"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_right"></use></svg></icon>
+								</li>
+								<li id="10" class="add_ctrl" title="addCtrl">
+								<input type="hidden" id="10pic" name="ctrlPic" value="icon_door">
+								<input type="hidden" id="10name" name="ctrlName" value="门磁警报">
+									<hgroup class="10pic"><svg class="icon-86-blue"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_door"></use></svg><name>添加门磁警报控制</name></hgroup>
+									<icon class="fr rightIco"><svg class="icon-70-lightgray"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_right"></use></svg></icon>
+								</li>
+								<li id="11" class="add_ctrl" title="addCtrl">
+								<input type="hidden" id="11pic" name="ctrlPic" value="icon_water">
+								<input type="hidden" id="11name" name="ctrlName" value="水浸警报">
+									<hgroup class="11pic"><svg class="icon-86-blue"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_water"></use></svg><name>添加水浸警报控制</name></hgroup>
+									<icon class="fr rightIco"><svg class="icon-70-lightgray"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_right"></use></svg></icon>
+								</li>
+								<li id="12" class="add_ctrl" title="addCtrl">
+								<input type="hidden" id="12pic" name="ctrlPic" value="icon_smoke">
+								<input type="hidden" id="12name" name="ctrlName" value="烟雾警报">
+									<hgroup class="12pic"><svg class="icon-86-blue"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_smoke"></use></svg><name>添加烟雾警报控制</name></hgroup>
+									<icon class="fr rightIco"><svg class="icon-70-lightgray"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_right"></use></svg></icon>
+								</li>
+								<li id="13" class="add_ctrl" title="addCtrl">
+								<input type="hidden" id="13pic" name="ctrlPic" value="icon_manipulator">
+								<input type="hidden" id="13name" name="ctrlName" value="机械手">
+									<hgroup class="13pic"><svg class="icon-86-blue"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_manipulator"></use></svg><name>添加机械手控制</name></hgroup>
+									<icon class="fr rightIco"><svg class="icon-70-lightgray"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_right"></use></svg></icon>
+								</li>
+								<li id="14" class="add_ctrl" title="addCtrl">
+								<input type="hidden" id="14pic" name="ctrlPic" value="icon_door">
+								<input type="hidden" id="14name" name="ctrlName" value="SOS">
+									<hgroup class="14pic"><svg class="icon-86-blue"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_door"></use></svg><name>添加SOS控制</name></hgroup>
+									<icon class="fr rightIco"><svg class="icon-70-lightgray"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_right"></use></svg></icon>
+								</li>
+								<li id="15" class="add_ctrl" title="addCtrl">
+								<input type="hidden" id="15pic" name="ctrlPic" value="icon_door">
+								<input type="hidden" id="15name" name="ctrlName" value="红外幕帘">
+									<hgroup class="15pic"><svg class="icon-86-blue"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_door"></use></svg><name>添加红外幕帘控制</name></hgroup>
+									<icon class="fr rightIco"><svg class="icon-70-lightgray"><use xlink:href="/beetl/smartHome_1/icon/xlink_icon.svg#icon_right"></use></svg></icon>
+								</li>
+							</ul>						</section>
+					</div>
+					
+				</div>
+			</div>
 		</div>
-
-		<svg class="icon-40-darkgray">
-			<use xlink:href="./images/icons/xlink_icon.svg#icon_pwd"></use>
-		</svg>
-
-		<input type="password" id="twicePwd" name="twicePwd" class="two" placeholder="请再输入一遍密码" maxlength="18">
-
-		<svg class="icon-40-blue testOk twicePwd">
-			<use xlink:href="./images/icons/xlink_icon.svg#icon_correct"></use>
-		</svg>
-		<br>
-
-		<div class="testAlert twicePwd">
-			<section style="float: left;margin: 1.5rem 2rem;">
-				<svg class="icon-40-roseo">
-					<use xlink:href="./images/icons/xlink_icon.svg#icon_warning"></use>
-				</svg>
-			</section>
-			两次密码不一致,<br>请检查后再次输入。
+		<!--添加智能场景按钮-->
+		<div id="add_scene">
+			<a class="add_scene">添加智能场景</a>
 		</div>
+		<script src="./X&#39;Link_files/zepto.js.下载"></script>
+		<script src="./X&#39;Link_files/iscroll-lite.js.下载"></script>
+		<script src="./X&#39;Link_files/main.js"></script>
+		
+		<script type="text/javascript">
+			function initWebSocket() {
+				if (window.WebSocket) {
+					websocket = new WebSocket(encodeURI('ws://s.91wego.com/WebSocketMessage?openid=' + 'oBMD_tyqmQiAerjhUToYPAas95qQ'));
+					websocket.onopen = function() {
+						//连接成功
+					};
+					websocket.onerror = function() {
+						//连接失败
+					};
+					websocket.onclose = function() {
+						//连接断开
+					};
+					//消息接收
+					websocket.onmessage = function(message) {
+						var data = message.data;
+						if (data.indexOf("011:")>=0||data.indexOf("012:")>=0||data.indexOf("013:")>=0||data.indexOf("014:")>=0) {
+							alert(data.split(":")[1]);
+						}
+						if (data.split(".").length==3) {
+							var temperature = data.split(",")[0];
+							var humidity = data.split(",")[1];
+							$("#shinei").text(temperature.split(".")[0]);
+							$("#shidu").text(humidity.split(".")[0]);
+						}					};
+				}
+			}
+			initWebSocket();
+			
+			function pm25(p) {
+				if(p != null){
+		       		$("#PM25").html(p);
+		       		if(p >= 0 && p < 50){
+		       			$("#AQI").html("优");
+		       		}else if(p >= 50 && p < 100){
+		       			$("#AQI").html("良");
+		       		}else if(p >= 100 && p < 150){
+		       			$("#AQI").html("轻度污染");
+		       		}else if(p >= 150 && p < 200){
+		       			$("#AQI").html("中度污染");
+		       		}else if(p >= 200 && p < 300){
+		       			$("#AQI").html("重度污染");
+		       		}else if(p >= 300){
+		       			$("#AQI").html("严重污染");
+		       		}
+		    	} 
+			}
+			
+			function getWeather() {
+				var city = remote_ip_info.city;
+				$.ajax({
+					type:"post",
+					url:"/wisdom/getWeather",
+					data:"city="+city,
+					dataType: "json",
+					success:function(data) {
+				       	if(data != null){
+				       		$("#PM25").html(data.pm25);
+				       		if(data.pm25 >= 0 && data.pm25 < 50){
+				       			$("#AQI").html("优");
+				       		}else if(data.pm25 >= 50 && data.pm25 < 100){
+				       			$("#AQI").html("良");
+				       		}else if(data.pm25 >= 100 && data.pm25 < 150){
+				       			$("#AQI").html("轻度污染");
+				       		}else if(data.pm25 >= 150 && data.pm25 < 200){
+				       			$("#AQI").html("中度污染");
+				       		}else if(data.pm25 >= 200 && data.pm25 < 300){
+				       			$("#AQI").html("重度污染");
+				       		}else if(data.pm25 >= 300){
+				       			$("#AQI").html("严重污染");
+				       		}
+				    	} 
+					}
+				});
+			}
+				getWeather();								    // 1min
+		    function get_time(){
+		   		$.ajax({
+		  		   type:"post",
+		  		   url:"/smartHome_1/sendTempcode",
+		  		   data:"userid=11206030083809211958&ercode=1445",
+		  	   });
+			};
+			setTimeout("get_time()",500);
+			setInterval("get_time()",60000);
+		</script>
 
-		<svg class="icon-40-darkgray">
-			<use xlink:href="./images/icons/xlink_icon.svg#icon_email"></use>
-		</svg>
-
-		<input type="email" id="safeEmail" name="safeEmail" class="three" placeholder="请输入您的安全邮箱">
-
-		<svg class="icon-40-blue testOk email">
-			<use xlink:href="./images/icons/xlink_icon.svg#icon_correct"></use>
-		</svg>
-		<br>
-
-		<div class="testAlert email">
-			<section style="float: left;margin: 1.5rem 2rem;">
-				<svg class="icon-40-roseo">
-					<use xlink:href="./images/icons/xlink_icon.svg#icon_warning"></use>
-				</svg>
-			</section>
-			邮箱格式不正确，<br>请检查后再次输入。
-		</div>
-
-		<aside>
-			<a href="javascript:void(0)" class="EQP_btn" data-add-btnfn="back_WX">退出</a>
-			<a href="javascript:void(0)" class="EQP_btn" id="test_btn" data-add-btnfn="finish">确认</a>
-		</aside>
-	</section>
-</form>
-
-
-<script src="./scripts/zepto.js"></script>
-<script src="./scripts/iscroll-lite.js"></script>
-<script src="./scripts/main.js"></script>
-
-
-</body>
-</html>
+	
+	
+</body></html>

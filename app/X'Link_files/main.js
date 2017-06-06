@@ -78,10 +78,14 @@ alive.tools.rewriteScroll = function () {
 alive.tools.setDefault = function () {
 	document.addEventListener('touchstart', function (e) {
 		e.preventDefault();
-	}, false);
+	}, {
+    passive: false
+  });
 	document.addEventListener('touchmove', function (e) {
 		e.preventDefault();
-	});
+	},{
+    passive: false
+  });
 	document.oncontextmenu = function (e) {
 		window.event.returnValue = false;
 		e.preventDefault();
@@ -91,24 +95,31 @@ alive.tools.setDefault = function () {
 
 //触碰动效模拟(默认touch_active类)
 alive.tools.touchActive = function (object,cls,targetObj) {
-    cls = typeof(cls) == 'undefined' ? 'touch_active' : cls; 
-    
+    cls = typeof(cls) == 'undefined' ? 'touch_active' : cls;
+
+    var fakeActive = function(el){
+
+      el.addClass(cls);
+
+      setTimeout(function () {
+        el.removeClass(cls);
+      }, 200);
+
+    };
+
     if (typeof(targetObj) == 'undefined') {
-        object.each(function () {
-            $(this).on('touchstart', function () {
-                $(this).addClass(cls);
-            }).on('touchmove touchend touchcancel', function () {
-                $(this).removeClass(cls);
-            });
+      object.each(function () {
+        $(this).on('tap', function () {
+          fakeActive($(this));
         });
+      });
     } else {
-        object.each(function () {
-            $(this).on('touchstart', function () {
-                targetObj.addClass(cls);
-            }).on('touchmove touchend touchcancel', function () {
-                targetObj.removeClass(cls);
-            });
+      object.each(function () {
+        $(this).on('tap', function () {
+          fakeActive(targetObj);
         });
+
+      });
     }
 };
 
@@ -448,7 +459,7 @@ alive.ui.asideBackHome = function () {
         if(sceneID == null || sceneID == "" || htmlflg == "scene"){
         	$("#goIndex").html("返回主页");
         	oBackHome.on('tap', function () {
-                window.location.href="/smartHome_1/goHome/0-"+userid+"-"+openid;
+                window.location.href="/smartHome_1/goHome/"+gzhflag+"-"+userid+"-"+openid;
             });
         }else if(sceneID != null || sceneID != ""){
         	$("#goIndex").html("返回场景");
@@ -526,10 +537,12 @@ alive.ui.asideSet = function (){
         var oAsideSetAmendName = $('aside>section a#szContentName');//名
         var oAsideSetBinding = $('aside>section a#szContentBinding');//绑定
         var oAsideSetReBinding = $('aside>section a#szContentRemoveBinding');//解除绑定
+        var oAsideSetChange = $('aside>section a#szContentChange');//开关交换
         var oAsideSetDel = $('aside>section a#szContentDel');//删除
         var oAsideSetVoid = $('aside>section a#szContentVoid');//语音 场景中
         var oAsideSetLearn = $('aside>section a#szContentLearn');//射频学习 场景中
         var oAsideMachineControl = $('aside>section a#szContentControl');//添加机械手  安防页面中
+        var oAsideSetTime = $('aside>section a#szContentSetTime');//红外幕帘定时
         oAsideSetAmendPic.on('tap', function () {//图
             //console.log('修改场景图');
             alive.ui.showPopup($("div#popup_edit_pic"));//修改图
@@ -551,6 +564,11 @@ alive.ui.asideSet = function (){
         oAsideSetReBinding.on('tap', function () {//解除绑定
         	//console.log('解除绑定');
         	alive.ui.showPopup($("div#popup_edit_relieveBtn"));//解除绑定显示
+        });
+        
+        oAsideSetChange.on('tap', function () {//开关交换
+        	//console.log('开关交换');
+        	alive.ui.showPopup($("div#popup_change_equipment"));//开关交换显示
         });
         
         oAsideSetDel.on('tap', function () {
@@ -602,6 +620,21 @@ alive.ui.asideSet = function (){
     		$(".content").css("padding-top","40rem");
     		alive.tools.rewriteScroll();
     	});
+        
+        oAsideSetTime.on("tap",function(){//红外幕帘
+        	//console.log('定时');
+        	//时间和星期
+			var timeValue=$("#irSettime").val();//获取数据库中 settime的值 8:50-10:50
+			 
+			var startTime = timeValue.split("-")[0]; //8:50
+			var endTime = timeValue.split("-")[1];//10:50
+			$("#start_input_hours").val(startTime.split(":")[0]);//获取 小时 8
+			$("#start_input_minutes").val(startTime.split(":")[1]);//获取 分钟 50
+			
+			$("#end_input_hours").val(endTime.split(":")[0]);//获取 小时 10
+			$("#end_input_minutes").val(endTime.split(":")[1]);//获取 分钟 50
+			alive.ui.showPopup($('.popup#popup_timer'));
+        });
     }
 };
 
@@ -827,7 +860,7 @@ alive.app.tapIndexList = function () {
                             	goUrl="add_MyTV";
                             }else if(ctrlID == 8 ){//机顶盒
                             	goUrl="add_MyDVB";
-                            }else if(ctrlID == 9 || ctrlID == 10 || ctrlID == 11 || ctrlID == 12){//安防
+                            }else if(ctrlID == 9 || ctrlID == 10 || ctrlID == 11 || ctrlID == 12 || ctrlID == 14 || ctrlID == 15){//安防
                             	goUrl="add_warning";
                             }else if(ctrlID == 13 ){//机械手
                             	goUrl="add_manipulator";
@@ -854,6 +887,11 @@ alive.app.tapIndexList = function () {
                 					window.location.href="/smartHome_1/findsecPage/warning_controller-"+$("#firstID").val()+"-"+codeid+"-"+openid+"-"+userid;
                 				}
                 			});
+                        	break;
+                        case 'changeHost' :
+                        	$("div#popup_alert_changeHost>section.popup_confirm>h1").html("是否切换为&nbsp"+this.id+"&nbsp号主机？");
+                        	alive.ui.showPopup($("div#popup_alert_changeHost"));
+                        	changeCodeID = this.id;
                         	break;
                         
                         default: 
@@ -1157,15 +1195,26 @@ alive.app.SceneSwitch = function () {
 			this.dataset.switchBlock = 'switch_off';
 			//console.log('关闭定时');
 			oIndexSvg.attr("class","icon-60-gray");
-   			$.ajax({
-		   		 type:"post",
-		   		 url:"/smartHome_1/removeTime",
-		   		 data:"sceID=" + sceneID +"&codeid=" + codeid +"&time="+$("#timeValue").val(),
-		   		 success:function(){
-		   			
-		   			$("#timeStart").val("0");
-		   		 }
-		   	});
+			if(htmlflg == "scene"){
+	   			$.ajax({
+			   		 type:"post",
+			   		 url:"/smartHome_1/removeTime",
+			   		 data:"sceID=" + sceneID +"&codeid=" + codeid +"&time="+$("#timeValue").val(),
+			   		 success:function(){
+			   			
+			   			$("#timeStart").val("0");
+			   		 }
+			   	});
+			}else if(htmlflg == "warning"){
+				$.ajax({
+			   		 type:"post",
+			   		 url:"/smartHome_1/removeIrCurtainTime",
+			   		 data:"contID=" + $("#irContID").val(),
+			   		 success:function(){
+			   			$("#timeStart").val("0");
+			   		 }
+			   	});
+			}
 		}else{
 			return false;
 		}
@@ -1175,15 +1224,27 @@ alive.app.SceneSwitch = function () {
 			this.dataset.switchBlock = 'switch_on';
 			//console.log('开启定时');
 			oIndexSvg.attr("class","icon-60-blue");
+			if(htmlflg == "scene"){
    			$.ajax({
    				type:"post",
    				url:"/smartHome_1/sceSetTime",
-   				data:"sceID="+sceneID+"&codeid="+codeid+"&userid="+userid+"&minutes="+$("#input_minutes").val()+"&hours="+$("#input_hours").val()+"&week="+setTimeWeek.substring(0,setTimeWeek.length-1),
+   				data:"sceID=" + sceneID + "&codeid=" + codeid + "&userid=" + userid + "&minutes=" + $("#input_minutes").val() + "&hours=" + $("#input_hours").val() + "&week=" + setTimeWeek.substring(0,setTimeWeek.length-1),
 		   		success:function(){
 		   			$("#timeStart").val("1");
 		   			$("#timeValue").val("0 "+ $('#input_minutes').val() +" "+ $("#input_hours").val() +" ? * "+ setTimeWeek.substring(0,setTimeWeek.length-1));
 		   		}
    			});
+			}else if(htmlflg == "warning"){
+				$.ajax({
+	   				type:"post",
+	   				url:"/smartHome_1/IrCurtainSetTime",
+	   				data:"contID=" + $("#irContID").val() + "&codeid=" + codeid +"&userid=" + userid + "&startminutes=" + $("#start_input_minutes").val() + "&starthours=" + $("#start_input_hours").val()+ "&endminutes=" + $("#end_input_minutes").val() + "&endhours=" + $("#end_input_hours").val(),
+			   		success:function(){
+			   			$("#timeStart").val("1");
+			   			$("#irSettime").val($("#start_input_hours").val()+":"+$("#start_input_minutes").val()+"-"+$("#end_input_hours").val()+":"+$("#end_input_minutes").val());
+			   		}
+	   			});
+			}
 		}else{
 			return false;
 		}
@@ -1194,8 +1255,6 @@ alive.app.SceneSwitch = function () {
 /**
  * 12 29 时间加减处 获取当前的值进行加减
  */
-var hNum=0;
-var mNum=0;
 alive.app.timePopupBtn = function(){
 	if ( $('#popup_timer').length > 0 ) {
         var clockBtn = $('a.clockBtn');
@@ -1209,6 +1268,9 @@ alive.app.timePopupBtn = function(){
 				},1000);
     			return false;
         	}
+        	if(htmlflg == "scene"){
+        		var hNum=0;
+        		var mNum=0;
         		hNum=$("#input_hours").val();
             	mNum=$("#input_minutes").val();
                 switch( this.title ){
@@ -1248,9 +1310,96 @@ alive.app.timePopupBtn = function(){
                         $("#input_minutes").val(mNum);
                         
                         break;
-                        
                     default: false;
                 }
+        	} else if(htmlflg == "warning"){
+        		var starthNum=0;
+        		var startmNum=0;
+        		var endhNum=0;
+        		var endmNum=0;
+        		
+        		starthNum=$("#start_input_hours").val();
+        		startmNum=$("#start_input_minutes").val();
+        		endhNum=$("#end_input_hours").val();
+        		endmNum=$("#end_input_minutes").val();
+                switch( this.title ){
+                    case 'start_hPlusBtn' :
+                        //console.log('时 加');
+                    	starthNum++;
+                        if(starthNum < 0 || starthNum >23){
+                        	starthNum=0;
+                        }
+                        $("#start_input_hours").val(starthNum);
+                        
+                        break;
+                    case 'start_mPlusBtn' :
+                        //console.log('分 加');
+                    	startmNum++;
+                        if(startmNum < 0 || startmNum > 59){
+                        	startmNum=0;
+                        }
+                        $("#start_input_minutes").val(startmNum);
+                        
+                        break;
+                    case 'start_hMinusBtn' :
+                        //console.log('时 减');
+                    	starthNum--;
+                        if(starthNum < 0 || starthNum > 23){
+                        	starthNum=23;
+                        }
+                        $("#start_input_hours").val(starthNum);
+                        
+                        break;
+                    case 'start_mMinusBtn' :
+                        //console.log('分 减');
+                    	startmNum--;
+                        if(startmNum < 0 || startmNum > 59){
+                        	startmNum=59;
+                        }
+                        $("#start_input_minutes").val(startmNum);
+                        
+                        break;
+                        
+                    case 'end_hPlusBtn' :
+                        //console.log('时 加');
+                    	endhNum++;
+                        if(endhNum < 0 || endhNum >23){
+                        	endhNum=0;
+                        }
+                        $("#end_input_hours").val(endhNum);
+                        
+                        break;
+                    case 'end_mPlusBtn' :
+                        //console.log('分 加');
+                    	endmNum++;
+                        if(endmNum < 0 || endmNum > 59){
+                        	endmNum=0;
+                        }
+                        $("#end_input_minutes").val(endmNum);
+                        
+                        break;
+                    case 'end_hMinusBtn' :
+                        //console.log('时 减');
+                    	endhNum--;
+                        if(endhNum < 0 || endhNum > 23){
+                        	endhNum=23;
+                        }
+                        $("#end_input_hours").val(endhNum);
+                        
+                        break;
+                    case 'end_mMinusBtn' :
+                        //console.log('分 减');
+                    	endmNum--;
+                        if(endmNum < 0 || endmNum > 59){
+                        	endmNum=59;
+                        }
+                        $("#end_input_minutes").val(endmNum);
+                        
+                        break;
+                    default: false;
+                }
+        	}
+        		
         });
 	}
 };
@@ -2303,7 +2452,7 @@ alive.app.add.popupBtn = function () {
     if ( $('div.popup a.popup_backHome').length >0 ){
         //绑定返回主页确定按钮
         $('div.popup a.popup_backHome').on('tap',function () {
-        	window.location.href="/smartHome_1/goHome/0-"+ userid +"-"+ openid;
+        	window.location.href="/smartHome_1/goHome/"+gzhflag+"-"+userid+"-"+openid;
         });
     }
     if ( $("div#popup_alert_Index").length >0 ){//12 28 index.html 删除提示框 最外层ID 由"popup_del_Index " =>"popup_alert_Index"
@@ -2404,12 +2553,58 @@ alive.app.add.popupBtn = function () {
     					alive.ui.hidePopup($("div#popup_del_equipment"));
     					alive.ui.waitAlert("删除成功！");
     					
-    					window.location.href="/smartHome_1/goHome/0-"+userid+"-"+openid;
+    					window.location.href="/smartHome_1/goHome/"+gzhflag+"-"+userid+"-"+openid;
     				}
     			});
     		}
     	});
     }
+    
+  //开关交换
+    if ( $("div#popup_change_equipment").length >0 ){
+    	var tON = null;
+    	var tOFF = null;
+    	var contID1=0;
+    	var contID2=0;
+    	//开关交换
+    	$('div.popup a.changeOK').on('tap',function () {
+    		tON = $("div#On>a.on").attr("title");
+    		tOFF = $("div#Off>a.off").attr("title");
+    		contID1=$("div#On>a.on").parent().parent().attr("title").split("#")[0];
+    		contID2=$("div#Off>a.off").parent().parent().attr("title").split("#")[0];
+    		$.ajax({
+				type:"post",
+				url:"/smartHome_1/changeONOFF",
+				data:"contID1="+contID1+"&contID2="+contID2,
+				success:function() {
+					$("div#On>a.on").attr("title",tOFF);
+		    		$("div#Off>a.off").attr("title",tON);
+		    		alive.ui.hidePopup($("div#popup_change_equipment"));
+		    		$("a.alertMsg").html("交换成功！");
+					alive.ui.popupShowHide();
+				}
+			});
+    	});
+    }
+    
+  //改变绑定的主机
+    if ( $("div#popup_alert_changeHost").length >0 ){
+    	$('div.popup a.changeOK').on('tap',function () {
+    		$.ajax({
+				type:"post",
+				url:"/smartHome_1/changeHost",
+				data:"openID="+openid+"&machineID="+changeCodeID,
+				success:function() {
+		    		alive.ui.hidePopup($("div#popup_alert_changeHost"));
+		    		$("a.alertMsg").html("切换成功！");
+					alive.ui.popupShowHide();
+					// 跳转到主页
+					window.location.href="/smartHome_1/smarthome/"+userid;
+				}
+			});
+    	});
+    }
+    
     if ( $("div#popup_edit_name").length >0 ){//改名
 		$("div.popup a.nameY").on("tap",function(){
 			var name=$("#panelName").val();//设备名
@@ -2444,7 +2639,7 @@ alive.app.add.popupBtn = function () {
 	 if ( $("div#popup_arc_powerBtn").length >0 ){//空调开关选择
 		$("div.popup a.powerBtnOpen").on("tap",function(){
 			var sendCom = this.title;
-			eventSend(sendCom+".0.0.0.0.0.0.0.0.0.0.33.0.0.0#06","电源开");
+			eventSend(sendCom+".0.9.0.0.0.0.0.0.0.0.33.0.0.0#06","电源开");
 		});
 		
 		$("div.popup a.powerBtnClose").on("tap",function(){
@@ -2985,14 +3180,14 @@ alive.app.add.admin = function () {
                 //授权按钮点击
                 case 'allow' :
                     //console.log('点击授权按钮');
-                    $("#userID").val(this.parentNode.parentNode.id);
+                    $("#userID").val(this.parentNode.parentNode.parentNode.id);
                     alive.ui.showPopup($("div#popup_allow_equipment"));//确认授权显示
                     break;
                     
                   //删除/取消授权按钮点击
                 case 'del' :
                     //console.log('点击删除/取消授权按钮');
-                    $("#userID").val(this.parentNode.parentNode.id);
+                    $("#userID").val(this.parentNode.parentNode.parentNode.id);
                     alive.ui.showPopup($("div#popup_del_equipment"));//确认删除/取消授
                     break;
                     
@@ -3103,7 +3298,7 @@ alive.app.add.admin = function () {
 	
 	// 用户列表返回
 	$("div#goBack").on("tap",function(){
-		alive.app.add.admin.program($("#userID") , '-1');
+		alive.app.add.admin.program($("#scroller") , '-1');
 		setTimeout(function(){
 			$("div#goBack").hide();
 			alive.tools.rewriteScroll();

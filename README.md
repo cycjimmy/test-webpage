@@ -1,2 +1,2 @@
-## test1
-问题：智能家居管理页面底下确认按钮在iOS系统下失灵bug
+## alive indexPage command btns bug
+问题：智能家居主页控制按钮在部分安卓微信浏览器下bug
